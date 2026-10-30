@@ -26,10 +26,12 @@ Installation et lancement
     pip install -r requirements.in
     # désampler le fichier de config et le remplir
     cp config.py.sample config.py
-    # Lancer l'application en mode debug (par défaut disponible sur : http://127.0.0.1:8050/ )
+    # Lancer l'application (par défaut disponible sur : http://127.0.0.1:8050/ )
     python dash_app.py
-    # ou sur un autre port
-    python dash_app.py --port 8051
+    # en mode debug (rechargement automatique, affichage des erreurs)
+    python dash_app.py --debug
+    # sur une autre adresse / un autre port
+    python dash_app.py --host 0.0.0.0 --port 8051
 
 Déploiement en production (Apache)
 ==================================
