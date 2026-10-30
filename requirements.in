@@ -3,3 +3,4 @@ dash-bootstrap-components
 psycopg2
 dash-leaflet
 dash_extensions
+gunicorn

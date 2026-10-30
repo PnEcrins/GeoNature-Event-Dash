@@ -26,5 +26,31 @@ Installation et lancement
     pip install -r requirements.in
     # désampler le fichier de config et le remplir
     cp config.py.sample config.py
-    # Lancer l'application  (par défaut disponible sur : http://127.0.0.1:8050/ )
+    # Lancer l'application en mode debug (par défaut disponible sur : http://127.0.0.1:8050/ )
     python dash_app.py
+    # ou sur un autre port
+    python dash_app.py --port 8051
+
+Déploiement en production (Apache)
+==================================
+
+L'application est servie par gunicorn, lancé par systemd, derrière Apache en reverse proxy.
+Les fichiers de configuration sont dans le dossier `deploy/` (à adapter : utilisateur, chemins, préfixe d'URL).
+
+    # Dans config.py, renseigner le préfixe d'URL
+    URL_PREFIX = "/event-dash/"
+
+    # Service systemd
+    sudo cp deploy/geonature-event-dash.service /etc/systemd/system/
+    sudo systemctl daemon-reload
+    sudo systemctl enable --now geonature-event-dash
+
+    # Apache
+    sudo a2enmod proxy proxy_http
+    sudo cp deploy/geonature-event-dash.conf /etc/apache2/conf-available/
+    sudo a2enconf geonature-event-dash
+    sudo systemctl reload apache2
+
+L'application est alors disponible sur `https://<domaine>/event-dash/`.
+
+Les données sont chargées au démarrage du service : pour les rafraîchir, `sudo systemctl restart geonature-event-dash`.

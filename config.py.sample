@@ -8,3 +8,6 @@ EVENT_ID_DATASET =
 ID_COMMUNE = 
 
 EVENT_TITLE = "Explor'Nature 2025"
+
+# Préfixe d'URL sous lequel l'app est servie (ex : "/event-dash/" derrière Apache)
+URL_PREFIX = "/"

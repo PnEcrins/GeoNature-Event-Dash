@@ -33,7 +33,12 @@ from config import *
 # rajouter l'ordre et la classe sur les tableaux ?
 
 
-app = Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = Dash(
+    external_stylesheets=[dbc.themes.BOOTSTRAP],
+    requests_pathname_prefix=URL_PREFIX,
+)
+# WSGI entrypoint for gunicorn
+server = app.server
 
 
 # observations
@@ -322,4 +327,9 @@ def update_output_div(group2, ordre, famille):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--port", type=int, default=8050)
+    args = parser.parse_args()
+    app.run(debug=True, port=args.port)
